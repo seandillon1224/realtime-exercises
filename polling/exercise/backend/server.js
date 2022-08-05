@@ -9,8 +9,8 @@ const getMsgs = () => Array.from(msg).reverse();
 
 // feel free to take out, this just seeds the server with at least one message
 msg.push({
-  user: "brian",
-  text: "hi",
+  user: "sean",
+  text: "ok?",
   time: Date.now(),
 });
 
@@ -21,11 +21,19 @@ app.use(bodyParser.json());
 app.use(express.static("frontend"));
 
 app.get("/poll", function (req, res) {
+  res.json({
+    msg: getMsgs(),
+  });
   // use getMsgs to get messages to send back
   // write code here
 });
 
 app.post("/poll", function (req, res) {
+  const { user, text } = req.body;
+  msg.push({ user, text, time: Date.now() });
+  res.json({
+    status: "S'good",
+  });
   // add a new message to the server
   // write code here
 });
